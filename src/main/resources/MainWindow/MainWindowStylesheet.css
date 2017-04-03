@@ -1,0 +1,12 @@
+.mainMenuBar {
+    -fx-background-color: gainsboro;
+    -fx-text-inner-color: black;
+}
+
+.mainRoot {
+    -fx-background-color: transparent;
+}
+
+.root {
+    -fx-background-color: #070338;
+}

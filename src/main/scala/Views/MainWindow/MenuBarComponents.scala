@@ -1,5 +1,7 @@
 package Views.MainWindow
 
+import Views.NewGameDialog.NewGameDialog
+
 import scalafx.application.Platform
 import scalafx.event.ActionEvent
 import scalafx.scene.control.{MenuBar, SeparatorMenuItem, Menu, MenuItem}
@@ -12,7 +14,30 @@ object MenuBarComponents {
     new MenuItem {
       text = "New Game"
       accelerator = KeyCombination("Ctrl +N")
-      onAction = (event: ActionEvent) => { println("Creating new game...")}
+
+      def validate(str: String): Boolean = {
+        if (str.length == 0) {
+          return false
+        }
+
+        if ("""\s""".r.findFirstIn(str).isDefined) {
+          return false
+        }
+
+        true
+      }
+
+      onAction = (event: ActionEvent) => {
+        val result = NewGameDialog.newGameDialog.showAndWait()
+        if (result.isDefined) {
+          if (validate(result.get)) {
+            println("creating: " + result.get)
+          }
+          else {
+            println("bad file name")
+          }
+        }
+      }
     }
   }
 
@@ -32,7 +57,7 @@ object MenuBarComponents {
 
   def MainMenuBar: MenuBar = {
     new MenuBar {
-      style = "-fx-background-color: gainsboro; -fx-text-inner-color: black"
+      styleClass.add("mainMenuBar")
       menus.addAll(gameMenu)
     }
   }

@@ -1,5 +1,6 @@
 package Views.MainWindow
 
+import Controllers.MainWindowController
 import Views.NewGameDialog.NewGameDialog
 
 import scalafx.application.Platform
@@ -13,8 +14,7 @@ object MenuBarComponents {
   def newGameMenuItem: MenuItem = {
     new MenuItem {
       text = "New Game"
-      accelerator = KeyCombination("Ctrl +N")
-
+      accelerator = KeyCombination("Shift +N")
       def validate(str: String): Boolean = {
         if (str.length == 0) {
           return false
@@ -31,10 +31,11 @@ object MenuBarComponents {
         val result = NewGameDialog.newGameDialog.showAndWait()
         if (result.isDefined) {
           if (validate(result.get)) {
-            println("creating: " + result.get)
+            MainWindowController.createNewGame(result.get)
+            NewGameDialog.newGameCreatedAlert(result.get).showAndWait()
           }
           else {
-            println("bad file name")
+            NewGameDialog.newGameErrorAlert.showAndWait()
           }
         }
       }

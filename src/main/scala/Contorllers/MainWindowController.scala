@@ -1,6 +1,0 @@
-package Contorllers
-
-object MainWindowController {
-
-
-}

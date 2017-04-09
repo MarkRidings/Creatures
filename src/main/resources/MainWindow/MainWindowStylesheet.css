@@ -1,6 +1,11 @@
 .mainMenuBar {
     -fx-background-color: gainsboro;
-    -fx-text-inner-color: black;
+    -fx-text-fill: red;
+}
+
+.gameMenu {
+    -fx-background-color: aqua;
+    -fx-text-fill: white;
 }
 
 .mainRoot {
@@ -9,4 +14,14 @@
 
 .root {
     -fx-background-color: #070338;
+    -fx-text-fill: white;
+}
+
+#weekLabel, #yearLabel, #weekText, #yearText {
+    -fx-text-fill: white;
+}
+
+#weekBox, #yearBox {
+    -fx-font-family: monospace;
+    -fx-font-size: 14px;
 }

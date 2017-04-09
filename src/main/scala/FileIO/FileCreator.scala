@@ -20,6 +20,6 @@ object FileCreator {
     writer.write(GameSettings.week + "\n")
     writer.write(GameSettings.year + "\n")
     writer.close()
-    
+
   }
 }

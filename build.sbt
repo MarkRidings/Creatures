@@ -1,3 +1,5 @@
+import scala.sys.SystemProperties
+
 name := "Creatures"
 
 version := "1.0"
@@ -11,4 +13,8 @@ libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % "2.12.1"
 )
 
-
+unmanagedJars in Compile += {
+  val ps = new SystemProperties
+  val jh = ps("java.home")
+  Attributed.blank(file(jh) / "lib/ext/jfxrt.jar")
+}

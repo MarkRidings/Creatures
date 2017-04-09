@@ -1,6 +1,8 @@
 package Views.MainWindow
 
 import Controllers.MainWindowController
+import Settings.GameSettings
+import ViewModels.MainWindowVm
 import Views.NewGameDialog.NewGameDialog
 
 import scalafx.application.Platform
@@ -32,6 +34,9 @@ object MenuBarComponents {
         if (result.isDefined) {
           if (validate(result.get)) {
             MainWindowController.createNewGame(result.get)
+            //MainWindowVm.CurrentWeek() = GameSettings.week
+            MainWindowVm.CurrentYear() = GameSettings.year.toString
+
             NewGameDialog.newGameCreatedAlert(result.get).showAndWait()
           }
           else {

@@ -1,7 +1,7 @@
 package Views.NewGameDialog
 
 import scalafx.scene.control.Alert.AlertType
-import scalafx.scene.control.{TextArea, Alert, TextInputDialog}
+import scalafx.scene.control.{Alert, TextInputDialog}
 
 object NewGameDialog {
 
@@ -14,7 +14,7 @@ object NewGameDialog {
   }
 
   def newGameErrorAlert: Alert = {
-    new Alert(AlertType.Warning) {
+    new Alert(AlertType.Error) {
       title = "Invalid Save Name"
       contentText = "Save name must contain only alphanumeric characters and no spaces"
       dialogPane().setMinWidth(600)

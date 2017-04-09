@@ -4,6 +4,7 @@ import Controllers.MainWindowController
 import Settings.GameSettings
 import ViewModels.MainWindowVm
 import Views.NewGameDialog.NewGameDialog
+import Views.OrgNameDialog.OrgNameDialog
 
 import scalafx.application.Platform
 import scalafx.event.ActionEvent
@@ -23,27 +24,50 @@ object MenuBarComponents {
           return false
         }
 
-        if ("""\s""".r.findFirstIn(str).isDefined) {
+        if (
+          """\s""".r.findFirstIn(str).isDefined) {
           return false
         }
 
         true
       }
 
-      onAction = (event: ActionEvent) => {
-        val saveNameResult = NewGameDialog.newGameDialog.showAndWait()
-        if (saveNameResult.isDefined) {
-          if (validate(saveNameResult.get)) {
-            MainWindowController.createNewGame(saveNameResult.get)
-            MainWindowVm.CurrentYear() = GameSettings.year.toString
-            MainWindowVm.CurrentWeek() = GameSettings.week.toString
-            MainWindowVm.TimeBoxVisible() = true
-            NewGameDialog.newGameCreatedAlert(saveNameResult.get).showAndWait()
+      def getSaveName: String = {
+        while (true) {
+          val saveNameResult = NewGameDialog.newGameDialog.showAndWait()
+          if (saveNameResult.isDefined && validate(saveNameResult.get)) {
+            return saveNameResult.get
           }
           else {
             NewGameDialog.newGameErrorAlert.showAndWait()
           }
         }
+
+        ""
+      }
+
+      def getOrgName: String = {
+        while (true) {
+          val orgNameResult = OrgNameDialog.orgNameDialog.showAndWait()
+          if (orgNameResult.isDefined && orgNameResult.get.trim != "") {
+            return orgNameResult.get.trim
+          }
+          else {
+            OrgNameDialog.invalidNameAlert.showAndWait()
+          }
+        }
+
+        ""
+      }
+
+      onAction = (event: ActionEvent) => {
+        val saveNameResult = getSaveName
+        val orgNameResult = getOrgName
+        MainWindowController.createNewGame(saveNameResult, orgNameResult)
+        MainWindowVm.CurrentYear() = GameSettings.year.toString
+        MainWindowVm.CurrentWeek() = GameSettings.week.toString
+        MainWindowVm.TimeBoxVisible() = true
+        NewGameDialog.newGameCreatedAlert(saveNameResult).showAndWait()
       }
     }
   }

@@ -6,8 +6,9 @@ import Settings.GameSettings
 
 object MainWindowController {
 
-  def createNewGame(saveName: String): Unit = {
+  def createNewGame(saveName: String, orgName: String): Unit = {
     GameSettings.saveName = saveName
+    GameSettings.orgName = orgName
     GameSettings.week = 1
     GameSettings.year = 1
 

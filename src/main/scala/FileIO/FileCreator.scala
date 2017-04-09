@@ -8,12 +8,11 @@ import Settings.GameSettings
 object FileCreator {
 
   val newline = sys.props("line.separator")
-  
+
   def createSavedGameFile(saveName: String): Unit = {
 
     val dir = Paths.get(System.getProperty("user.dir"))
     if (!Files.exists(Paths.get(s"$dir/saves"))) {
-      println(Paths.get(s"$dir/saves"))
       Files.createDirectories(Paths.get(s"$dir/saves"))
     }
 

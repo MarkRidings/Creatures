@@ -1,10 +1,12 @@
 package ViewModels
 
-import scalafx.beans.property.{StringProperty, IntegerProperty}
+import scalafx.beans.property.{BooleanProperty, StringProperty, IntegerProperty}
 
 object MainWindowVm {
 
-  var CurrentYear = StringProperty("2")
-  var CurrentWeek = StringProperty("3")
+  var CurrentYear = StringProperty("")
+  var CurrentWeek = StringProperty("")
+
+  var TimeBoxVisible = BooleanProperty(false)
 
 }

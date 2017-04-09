@@ -17,6 +17,7 @@ object MenuBarComponents {
     new MenuItem {
       text = "New Game"
       accelerator = KeyCombination("Shift +N")
+
       def validate(str: String): Boolean = {
         if (str.length == 0) {
           return false
@@ -30,14 +31,14 @@ object MenuBarComponents {
       }
 
       onAction = (event: ActionEvent) => {
-        val result = NewGameDialog.newGameDialog.showAndWait()
-        if (result.isDefined) {
-          if (validate(result.get)) {
-            MainWindowController.createNewGame(result.get)
-            //MainWindowVm.CurrentWeek() = GameSettings.week
+        val saveNameResult = NewGameDialog.newGameDialog.showAndWait()
+        if (saveNameResult.isDefined) {
+          if (validate(saveNameResult.get)) {
+            MainWindowController.createNewGame(saveNameResult.get)
             MainWindowVm.CurrentYear() = GameSettings.year.toString
-
-            NewGameDialog.newGameCreatedAlert(result.get).showAndWait()
+            MainWindowVm.CurrentWeek() = GameSettings.week.toString
+            MainWindowVm.TimeBoxVisible() = true
+            NewGameDialog.newGameCreatedAlert(saveNameResult.get).showAndWait()
           }
           else {
             NewGameDialog.newGameErrorAlert.showAndWait()
@@ -61,7 +62,7 @@ object MenuBarComponents {
     }
   }
 
-  def MainMenuBar: MenuBar = {
+  def mainMenuBar: MenuBar = {
     new MenuBar {
       styleClass.add("mainMenuBar")
       menus.addAll(gameMenu)

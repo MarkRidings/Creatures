@@ -11,6 +11,7 @@ object MainWindowController {
     GameSettings.orgName = orgName
     GameSettings.week = 1
     GameSettings.year = 1
+    GameSettings.currentMoney = 5000
 
     FileCreator.createSavedGameFile(saveName)
   }

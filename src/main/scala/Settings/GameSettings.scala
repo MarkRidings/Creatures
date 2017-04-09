@@ -10,4 +10,6 @@ object GameSettings {
   var week: Int = 1
   var year: Int = 1
 
+  var currentMoney: Double = 0
+
 }

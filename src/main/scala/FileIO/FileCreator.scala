@@ -8,6 +8,7 @@ import Settings.GameSettings
 object FileCreator {
 
   val newline = sys.props("line.separator")
+  
   def createSavedGameFile(saveName: String): Unit = {
 
     val dir = Paths.get(System.getProperty("user.dir"))
@@ -21,7 +22,7 @@ object FileCreator {
     writer.write(GameSettings.orgName + newline)
     writer.write(GameSettings.week + newline)
     writer.write(GameSettings.year + newline)
+    writer.write(GameSettings.currentMoney + newline)
     writer.close()
-
   }
 }

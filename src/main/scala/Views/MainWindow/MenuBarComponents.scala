@@ -24,8 +24,8 @@ object MenuBarComponents {
           return false
         }
 
-        if (
-          """\s""".r.findFirstIn(str).isDefined) {
+        // save name cannot contain whitespace
+        if ("""\s""".r.findFirstIn(str).isDefined) {
           return false
         }
 
@@ -42,7 +42,6 @@ object MenuBarComponents {
             NewGameDialog.newGameErrorAlert.showAndWait()
           }
         }
-
         ""
       }
 
@@ -56,7 +55,6 @@ object MenuBarComponents {
             OrgNameDialog.invalidNameAlert.showAndWait()
           }
         }
-
         ""
       }
 

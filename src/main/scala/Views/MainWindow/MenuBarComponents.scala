@@ -65,6 +65,8 @@ object MenuBarComponents {
         MainWindowVm.CurrentYear() = GameSettings.year.toString
         MainWindowVm.CurrentWeek() = GameSettings.week.toString
         MainWindowVm.TimeBoxVisible() = true
+        MainWindowVm.RacingOrgName() = GameSettings.orgName
+        MainWindowVm.PlayerMoney() = "$%.2f".format(GameSettings.currentMoney)
         NewGameDialog.newGameCreatedAlert(saveNameResult).showAndWait()
       }
     }

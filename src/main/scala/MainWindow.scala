@@ -1,4 +1,4 @@
-import Views.MainWindow.{MenuBarComponents, TimeDisplayComponents}
+import Views.MainWindow.{MenuBarComponents, TimeDisplayComponents, RacingOrgComponents}
 
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
@@ -11,6 +11,7 @@ object MainWindow  extends JFXApp {
     styleClass.add("mainRoot")
     top = MenuBarComponents.mainMenuBar
     right = TimeDisplayComponents.timeBox
+    left = RacingOrgComponents.orgBox
   }
 
   val mainScene = new Scene(1200, 800) {

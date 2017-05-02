@@ -21,7 +21,8 @@ object RacingOrgComponents {
   moneyLabel.textProperty() <== MainWindowVm.PlayerMoney
 
   def orgBox: VBox = {
-    return new VBox {
+    new VBox {
+      prefWidth = 200
       children.addAll(orgLabel, moneyLabel)
     }
   }

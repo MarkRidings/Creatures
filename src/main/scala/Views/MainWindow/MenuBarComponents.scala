@@ -1,14 +1,16 @@
 package Views.MainWindow
 
 import Controllers.MainWindowController
+import GameObjects.SaleBarn
 import Settings.GameSettings
 import ViewModels.MainWindowVm
+import Views.Common.Alerts
 import Views.NewGameDialog.NewGameDialog
 import Views.OrgNameDialog.OrgNameDialog
 
 import scalafx.application.Platform
 import scalafx.event.ActionEvent
-import scalafx.scene.control.{MenuBar, SeparatorMenuItem, Menu, MenuItem}
+import scalafx.scene.control.{Menu, MenuBar, MenuItem, SeparatorMenuItem}
 import scalafx.scene.input.KeyCombination
 import scalafx.Includes._
 
@@ -58,15 +60,10 @@ object MenuBarComponents {
         ""
       }
 
-      onAction = (event: ActionEvent) => {
+      onAction = (_: ActionEvent) => {
         val saveNameResult = getSaveName
         val orgNameResult = getOrgName
         MainWindowController.createNewGame(saveNameResult, orgNameResult)
-        MainWindowVm.CurrentYear() = GameSettings.year.toString
-        MainWindowVm.CurrentWeek() = GameSettings.week.toString
-        MainWindowVm.TimeBoxVisible() = true
-        MainWindowVm.RacingOrgName() = GameSettings.orgName
-        MainWindowVm.PlayerMoney() = "$%.2f".format(GameSettings.currentMoney)
         NewGameDialog.newGameCreatedAlert(saveNameResult).showAndWait()
       }
     }
@@ -76,7 +73,30 @@ object MenuBarComponents {
     new MenuItem {
       text = "Exit"
       accelerator = KeyCombination("Esc")
-      onAction = (event: ActionEvent) => { Platform.exit() }
+      onAction = (_: ActionEvent) => { Platform.exit() }
+    }
+  }
+
+  def viewSaleBarnItem: MenuItem = {
+    new MenuItem {
+      text = "View Sale Barn"
+      onAction = (_: ActionEvent) => {
+        MainWindowController.viewSaleBarnWindow()
+      }
+    }
+  }
+
+  def enterRaceItem: MenuItem = {
+    new MenuItem {
+      text = "Enter Creature in next race"
+      onAction = (_: ActionEvent) => {
+        if (GameSettings.ownedCreatures.isEmpty) {
+          Alerts.errorAlert("You don't own any creature to race").showAndWait()
+        }
+        else {
+          Alerts.infoAlert("We gonna race").showAndWait()
+        }
+      }
     }
   }
 
@@ -86,10 +106,16 @@ object MenuBarComponents {
     }
   }
 
+  def actionMenu: Menu = {
+    new Menu("Actions") {
+      items.addAll(viewSaleBarnItem, enterRaceItem)
+    }
+  }
+
   def mainMenuBar: MenuBar = {
     new MenuBar {
       styleClass.add("mainMenuBar")
-      menus.addAll(gameMenu)
+      menus.addAll(gameMenu, actionMenu)
     }
   }
 

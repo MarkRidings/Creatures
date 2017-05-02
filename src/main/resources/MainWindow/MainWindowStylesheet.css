@@ -17,7 +17,7 @@
     -fx-text-fill: white;
 }
 
-#weekLabel, #yearLabel, #weekText, #yearText, #orgLabel, #moneyLabel {
+#weekLabel, #yearLabel, #weekText, #yearText, #orgLabel, #moneyLabel, #stableGrid {
     -fx-text-fill: white;
 }
 
@@ -26,3 +26,7 @@
     -fx-font-size: 14px;
 }
 
+#stableTitleLabel {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+}

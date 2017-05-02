@@ -74,6 +74,10 @@ class Creature (val genome: List[Int]) {
     }
   }
 
+  def salePrice: Double = {
+    (Speed + Acc + Endurance) * 100
+  }
+
   override def toString: String = {
     s"$Name: Speed: $Speed  Acc: $Acc  Endurance: $Endurance"
   }

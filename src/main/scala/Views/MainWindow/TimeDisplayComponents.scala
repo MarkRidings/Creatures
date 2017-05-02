@@ -43,6 +43,7 @@ object TimeDisplayComponents {
 
   def timeBox: VBox = {
     val timeBox = new VBox(2) {
+      prefWidth = 100
       children.addAll(yearBox, weekBox)
     }
     timeBox.visibleProperty() <== MainWindowVm.TimeBoxVisible

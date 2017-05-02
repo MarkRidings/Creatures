@@ -4,11 +4,12 @@ import scalafx.beans.property.{BooleanProperty, StringProperty, IntegerProperty}
 
 object MainWindowVm {
 
-  var CurrentYear = StringProperty("")
-  var CurrentWeek = StringProperty("")
-  var RacingOrgName = StringProperty("")
-  var PlayerMoney = StringProperty("")
+  val CurrentYear = StringProperty("")
+  val CurrentWeek = StringProperty("")
+  val RacingOrgName = StringProperty("")
+  val PlayerMoney = StringProperty("")
 
-  var TimeBoxVisible = BooleanProperty(false)
+  val TimeBoxVisible = BooleanProperty(false)
+  val StableTextVisible = BooleanProperty(false)
 
 }

@@ -13,8 +13,11 @@ libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % "2.12.1"
 )
 
+
 unmanagedJars in Compile += {
   val ps = new SystemProperties
   val jh = ps("java.home")
   Attributed.blank(file(jh) / "lib/ext/jfxrt.jar")
 }
+
+publishTo := Some(Resolver.file("Creatures", new File("/home/mark/Development/Creatures/Release")))

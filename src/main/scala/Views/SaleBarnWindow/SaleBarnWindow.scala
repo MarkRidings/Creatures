@@ -7,14 +7,13 @@ import GameObjects.{Creature, SaleBarn}
 import Settings.GameSettings
 import ViewModels.SaleBarn.SaleBarnViewModel
 import Views.Common.Alerts
-import Views.MainWindow.CreatureStableComponents
 
+import scalafx.Includes._
 import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.control.{Button, CheckBox, Label}
 import scalafx.scene.layout.GridPane
 import scalafx.stage.Stage
-import scalafx.Includes._
 
 class SaleBarnWindow {
 
@@ -25,7 +24,7 @@ class SaleBarnWindow {
   saleBarnRoot.setHgap(4)
 
   SaleBarn.creaturesForSale.zipWithIndex.foreach {
-    case(creature, index) => {
+    case(creature, index) =>
       val speedText = new Label { text = "Speed: %2d".format(creature.Speed) }
       val accText = new Label { text = "Acc: %2d".format(creature.Acc) }
       val endText = new Label { text = "End: %2d".format(creature.Endurance) }
@@ -40,7 +39,6 @@ class SaleBarnWindow {
       saleBarnRoot.add(accText, 2, index)
       saleBarnRoot.add(endText, 3, index)
       saleBarnRoot.add(priceText, 4, index)
-    }
   }
 
   val purchasePriceLabel = new Label

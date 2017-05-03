@@ -14,8 +14,21 @@ class Creature (val genome: List[Int]) {
   val Acc: Int = getAcc
   val Endurance: Int = getEndurance
 
+  var Condition: Double = 100.0
   var Name: String = s"Creature_$Id"
   Creature.NumCreated += 1
+
+  def currentSpeed: Int = {
+    (Speed * (Condition / 100)).asInstanceOf[Int]
+  }
+
+  def currentAcc: Int = {
+    (Acc * (Condition / 100)).asInstanceOf[Int]
+  }
+
+  def currentEnd: Int = {
+    (Endurance * (Condition / 100)).asInstanceOf[Int]
+  }
 
   def getSpeed: Int = {
     val speed = Genome.zipWithIndex map { case(e, i) => computeSpeed(e, i) } sum
@@ -79,7 +92,7 @@ class Creature (val genome: List[Int]) {
   }
 
   override def toString: String = {
-    s"$Name: Speed: $Speed  Acc: $Acc  Endurance: $Endurance"
+    s"$Name: Speed: $Speed  Acc: $Acc  Endurance: $Endurance  Condition: $Condition%"
   }
   
 }

@@ -1,18 +1,16 @@
 package Views.MainWindow
 
 import Controllers.MainWindowController
-import GameObjects.SaleBarn
 import Settings.GameSettings
-import ViewModels.MainWindowVm
 import Views.Common.Alerts
 import Views.NewGameDialog.NewGameDialog
 import Views.OrgNameDialog.OrgNameDialog
 
+import scalafx.Includes._
 import scalafx.application.Platform
 import scalafx.event.ActionEvent
 import scalafx.scene.control.{Menu, MenuBar, MenuItem, SeparatorMenuItem}
 import scalafx.scene.input.KeyCombination
-import scalafx.Includes._
 
 object MenuBarComponents {
 
@@ -94,8 +92,17 @@ object MenuBarComponents {
           Alerts.errorAlert("You don't own any creature to race").showAndWait()
         }
         else {
-          Alerts.infoAlert("We gonna race").showAndWait()
+          MainWindowController.selectCreatureToRaceWindow()
         }
+      }
+    }
+  }
+
+  def viewOpposingStablesItem: MenuItem = {
+    new MenuItem {
+      text = "View opposing stables"
+      onAction = (_: ActionEvent) => {
+        MainWindowController.viewOpposingStablesWindow()
       }
     }
   }
@@ -108,7 +115,7 @@ object MenuBarComponents {
 
   def actionMenu: Menu = {
     new Menu("Actions") {
-      items.addAll(viewSaleBarnItem, enterRaceItem)
+      items.addAll(viewSaleBarnItem, enterRaceItem, new SeparatorMenuItem(), viewOpposingStablesItem)
     }
   }
 

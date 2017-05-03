@@ -8,7 +8,9 @@ class CreateOpposingStablesCommand {
   val numStables = 20
   val numCreaturesPerStable = 3
 
-  1 to numStables foreach (_ => createNewStable() )
+  def execute(): Unit = {
+    1 to numStables foreach (_ => createNewStable())
+  }
 
   def createNewStable(): Unit = {
     val newStable = new Stable()

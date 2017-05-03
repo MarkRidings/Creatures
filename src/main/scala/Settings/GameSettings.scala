@@ -12,6 +12,7 @@ object GameSettings {
   var year: Int = 1
 
   var currentMoney: Double = 0
+  var creatureRacing: Creature = _
 
   val ownedCreatures: ListBuffer[Creature] = ListBuffer.empty[Creature]
 

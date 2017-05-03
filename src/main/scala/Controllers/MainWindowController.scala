@@ -1,11 +1,16 @@
 package Controllers
 
+import Commands.{CreateOpposingStablesCommand, DoRaceCommand}
 import FileIO.FileCreator
-import GameObjects.SaleBarn
+import GameObjects.{SaleBarn, Stable}
 import Settings.GameSettings
 import ViewModels.MainWindowVm
 import Views.MainWindow.CreatureStableComponents
+import Views.OpposingStablesWindow.OpposingStablesWindow
+import Views.RaceResultsWindow.RaceResultsWindow
 import Views.SaleBarnWindow.SaleBarnWindow
+import Views.SelectCreatureToRaceWindow.SelectCreatureToRaceWindow
+import Views.ViewStableWindow.ViewStableWindow
 
 import scalafx.scene.control.Label
 
@@ -23,6 +28,9 @@ object MainWindowController {
 
     FileCreator.createSavedGameFile(saveName)
 
+    val command = new CreateOpposingStablesCommand()
+    command.execute()
+
     MainWindowVm.CurrentYear() = GameSettings.year.toString
     MainWindowVm.CurrentWeek() = GameSettings.week.toString
     MainWindowVm.TimeBoxVisible() = true
@@ -35,6 +43,25 @@ object MainWindowController {
 
     val saleBarnWindow = new SaleBarnWindow
     val stage = saleBarnWindow.stage
+    stage.showAndWait()
+  }
+
+  def viewOpposingStablesWindow(): Unit = {
+
+    val opposingStablesWindow = new OpposingStablesWindow
+    val stage = opposingStablesWindow.stage
+    stage.showAndWait()
+  }
+
+  def viewStableWindow(stable: Stable): Unit = {
+    val viewStableWindow = new ViewStableWindow(stable)
+    val stage = viewStableWindow.stage
+    stage.showAndWait()
+  }
+
+  def selectCreatureToRaceWindow(): Unit = {
+    val creatureToRaceWindow = new SelectCreatureToRaceWindow
+    val stage = creatureToRaceWindow.stage
     stage.showAndWait()
   }
 
@@ -51,5 +78,26 @@ object MainWindowController {
     }
 
     MainWindowVm.PlayerMoney() = "$%.2f".format(GameSettings.currentMoney)
+  }
+
+  def doRace(): Unit = {
+    val command = new DoRaceCommand(10000)
+    val results = command.execute().sortBy(_._2)
+
+    val showRaceResultsWindow = new RaceResultsWindow(results)
+    val stage = showRaceResultsWindow.stage
+    stage.showAndWait()
+
+    GameSettings.week += 1
+
+    if (GameSettings.week > 52) {
+      GameSettings.week = 1
+      GameSettings.year += 1
+    }
+
+    MainWindowVm.CurrentWeek() = GameSettings.week.toString
+    MainWindowVm.CurrentYear() = GameSettings.year.toString
+
+    updateStable()
   }
 }
